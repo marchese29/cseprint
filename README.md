@@ -1,9 +1,8 @@
 # OSU CSEPrint
 A tool for printing local files to printers on stdlinux/faclinux
-*cseprint has no dependencies outside of the python standard library*
 
 ## Setting up SSH keys
-It's **strongly** recommended that you set up SSH keys to avoid entering your password every time an SSH command gets executed by the script.
+It's **strongly** recommended that you [set up SSH keys](https://www.digitalocean.com/community/tutorials/how-to-set-up-ssh-keys--2) to avoid entering your password every time an SSH command gets executed by the script.
 
 ## Installation Instructions:
 * `git clone` the repository
