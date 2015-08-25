@@ -59,6 +59,13 @@ def main():
     if not os.path.isfile(os.path.expanduser(args.file)):
         sys.exit('%s is not a valid file.' % args.file)
 
+    # Complain about non-pdf files.
+    if args.file.split('.')[-1] != 'pdf':
+        response = raw_input(
+            'The file you provided is not a pdf, would you like to continue anyways (y/n) ')
+        if response != 'Y' and response != 'y':
+            sys.exit(0)
+
     # Validate that the file can be opened
     if args.verbose:
         print 'Validating the provided file.'
