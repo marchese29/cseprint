@@ -44,6 +44,9 @@ def setup_args():
     # Allow verbose logging
     parser.add_argument('-v', '--verbose', action='store_true', help='Enable verbose logging.')
 
+    # Special printing options
+    parser.add_argument('--double-sided', action='store_true', help='Print double-sided sheets.')
+
     # Version printing
     parser.add_argument('--version', action='version', version='%(prog)s 1.0')
 
@@ -94,8 +97,11 @@ def main():
     except subprocess.CalledProcessError:
         sys.exit(1)
 
-    command = 'ssh {user}@{domain}.cse.ohio-state.edu lp -d {printer} - < {file}'.format(
-        user=args.user, domain=args.domain, printer=args.printer, file=args.file)
+    command = 'ssh {user}@{domain}.cse.ohio-state.edu lp -d {printer} '.format(
+        user=args.user, domain=args.domain, printer=args.printer)
+    if args.double_sided:
+        command += '-o sides=two-sided-long-edge '
+    command += '- < {file}'.format(file=args.file)
 
     if args.verbose:
         print 'Queuing up print job.'
