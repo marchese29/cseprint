@@ -69,6 +69,15 @@ def main():
     finally:
         handle.close()
 
+    # Validate that the user exists
+    if args.verbose:
+        print 'Validating the username: %s' % args.user
+    try:
+        subprocess.check_call(
+            ['ssh', args.user + '@' + args.domain + '.cse.ohio-state.edu', 'exit'])
+    except subprocess.CalledProcessError:
+        sys.exit('Failed to connect over ssh, is your username valid?')
+
     # Validate that the printer exists
     if args.verbose:
         print 'Validating the provided printer.'
