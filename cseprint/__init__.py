@@ -48,7 +48,7 @@ def setup_args():
     parser.add_argument('--double-sided', action='store_true', help='Print double-sided sheets.')
 
     # Version printing
-    parser.add_argument('--version', action='version', version='%(prog)s 1.0')
+    parser.add_argument('--version', action='version', version='%(prog)s 1.0.2')
 
     return parser.parse_args()
 
