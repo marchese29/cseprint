@@ -28,3 +28,6 @@ optional arguments:
   -v, --verbose        Enable verbose logging.
   --version            show program's version number and exit
 ```
+
+## License
+MIT: [http://rem.mit-license.org](http://rem.mit-license.org)
