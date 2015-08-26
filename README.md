@@ -13,7 +13,7 @@ It's **strongly** recommended that you [set up SSH keys](https://www.digitalocea
 ## Usage
 Usage of the script is fairly straightforward, it takes three arguments: a domain, a printer, and a local file.  You can also optionally provide the script with a username if your stdlinux/faclinux username differs from your local username.
 ```
-usage: __init__.py [-h] [--user USER] [-v] [--double-sided] [--version] {faclinux,stdlinux} printer file
+usage: cseprint [-h] [--user USER] [-v] [--double-sided] [--version] {faclinux,stdlinux} printer file
 
 Print anything you want to any cse printer.
 
