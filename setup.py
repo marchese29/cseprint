@@ -11,7 +11,10 @@ setup(
     keywords = "ohio state cse print printer",
     packages=['cseprint'],
     entry_points = {
-        'console_scripts': ['cseprint=cseprint:main']
+        'console_scripts': [
+            'cseprint=cseprint.print:main',
+            'cselpstat=cseprint.list:main'
+        ]
     },
     classifiers=[
         "Topic :: Utilities"
