@@ -38,7 +38,7 @@ def setup_args():
     parser.add_argument('file', help='The file to send to the printer.')
 
     # Allow the user to override their username
-    parser.add_argument('--user', required=False,
+    parser.add_argument('--user',
                         help='stdlinux/faclinux username if different from your local one.')
 
     # Allow verbose logging
@@ -46,12 +46,12 @@ def setup_args():
 
     # Special printing options
     parser.add_argument('--double-sided', action='store_true', help='Print double-sided sheets.')
-
-    # Show a list of available printers
-    parser.add_argument('--list', action='store_true', help='List the printers available to you.')
+    parser.add_argument('--fit-to-page', action='store_true', help='Fit all sheets to their page.')
+    parser.add_argument('--per-page', type=int, choices=[2, 4, 6, 9, 16],
+                        help='The number of pages to put on each sheet.')
 
     # Version printing
-    parser.add_argument('--version', action='version', version='%(prog)s 1.0.2')
+    parser.add_argument('--version', action='version', version='%(prog)s 1.1')
 
     return parser.parse_args()
 
@@ -68,7 +68,7 @@ def main():
     # Complain about non-pdf files.
     if args.file.split('.')[-1] != 'pdf':
         response = raw_input(
-            'The file you provided is not a pdf, would you like to continue anyways (y/n) ')
+            'The file you provided is not a pdf, would you like to continue anyways? (y/n) ')
         if response != 'Y' and response != 'y':
             sys.exit(0)
 
@@ -104,11 +104,15 @@ def main():
         user=args.user, domain=args.domain, printer=args.printer)
     if args.double_sided:
         command += '-o sides=two-sided-long-edge '
+    if args.fit_to_page:
+        command += '-o fit-to-page '
+    if args.per_page:
+        command += '-o number-up={number}'.format(number=args.per_page)
     command += '- < {file}'.format(file=args.file)
 
     if args.verbose:
-        print 'Queuing up print job.'
-    subprocess.call(command, shell=True)
+        print 'Queuing up print job with command: ' + command
+    subprocess.call(command, shell=True)  # WARNING, this is potentially not secure.
 
 if __name__ == '__main__':
     main()

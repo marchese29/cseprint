@@ -34,7 +34,7 @@ def setup_args():
     # Optional arguments
     parser.add_argument('--user', required=False,
                         help='stdlinux/faclinux username if different from your local one')
-    parser.add_argument('--version', action='version', version='%(prog)s 1.0.2')
+    parser.add_argument('--version', action='version', version='%(prog)s 1.1')
 
     return parser.parse_args()
 
