@@ -3,7 +3,7 @@ from setuptools import setup
 
 setup(
     name = "cseprint",
-    version = "1.1",
+    version = "1.2",
     author = "Daniel Marchese",
     author_email = "marchese.29@osu.edu",
     description = "A utility for printing files to printers on stdlinux.",

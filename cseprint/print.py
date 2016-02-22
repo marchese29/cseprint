@@ -51,7 +51,7 @@ def setup_args():
                         help='The number of pages to put on each sheet.')
 
     # Version printing
-    parser.add_argument('--version', action='version', version='%(prog)s 1.1')
+    parser.add_argument('--version', action='version', version='%(prog)s 1.2')
 
     return parser.parse_args()
 
@@ -64,6 +64,8 @@ def main():
     # Validate that the file exists
     if not os.path.isfile(os.path.expanduser(args.file)):
         sys.exit('%s is not a valid file.' % args.file)
+    else:
+        args.file = os.path.expanduser(args.file)
 
     # Complain about non-pdf files.
     if args.file.split('.')[-1] != 'pdf':
@@ -100,19 +102,23 @@ def main():
     except subprocess.CalledProcessError:
         sys.exit(1)
 
-    command = 'ssh {user}@{domain}.cse.ohio-state.edu lp -d {printer} '.format(
-        user=args.user, domain=args.domain, printer=args.printer)
+    command = ['ssh',
+    '{user}@{domain}.cse.ohio-state.edu'.format(user=args.user, domain=args.domain), 'lp' , '-d',
+    '{printer}'.format(printer=args.printer)]
     if args.double_sided:
-        command += '-o sides=two-sided-long-edge '
+        command += ['-o', 'sides=two-sided-long-edge']
     if args.fit_to_page:
-        command += '-o fit-to-page '
+        command += ['-o', 'fit-to-page']
     if args.per_page:
-        command += '-o number-up={number}'.format(number=args.per_page)
-    command += '- < {file}'.format(file=args.file)
+        command += ['-o', 'number-up={number}'.format(number=args.per_page)]
 
     if args.verbose:
-        print 'Queuing up print job with command: ' + command
-    subprocess.call(command, shell=True)  # WARNING, this is potentially not secure.
+        print 'Queuing up print job with command: ' + ' '.join(command)
+    try:
+        with open(args.file, 'rb', 0) as thefile, open(os.devnull, 'w') as devnull:
+            subprocess.call(command, stdin=thefile, stderr=devnull)
+    except Exception as err:
+        sys.exit('There was an error making the print call: %s' % str(err))
 
 if __name__ == '__main__':
     main()
