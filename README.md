@@ -13,21 +13,27 @@ It's **strongly** recommended that you [set up SSH keys](https://www.digitalocea
 ## Usage
 Usage of the script is fairly straightforward, it takes three arguments: a domain, a printer, and a local file.  You can also optionally provide the script with a username if your stdlinux/faclinux username differs from your local username.
 ```
-usage: cseprint [-h] [--user USER] [-v] [--double-sided] [--version] {faclinux,stdlinux} printer file
+usage: cseprint [-h] [--user USER] [-v] [--double-sided] [--fit-to-page]
+                [--per-page {2,4,6,9,16}] [--version]
+                {faclinux,stdlinux} printer file
 
 Print anything you want to any cse printer.
 
 positional arguments:
-  {faclinux,stdlinux}  Subdomain you are printing to.
-  printer              Printer you would like to send to.
-  file                 The file to send to the printer.
+  {faclinux,stdlinux}   Subdomain you are printing to.
+  printer               Printer you would like to send to.
+  file                  The file to send to the printer.
 
 optional arguments:
-  -h, --help           show this help message and exit
-  --user USER          stdlinux/faclinux username if different from your local one.
-  -v, --verbose        Enable verbose logging.
-  --double-sided       Print double-sided sheets.
-  --version            show program's version number and exit
+  -h, --help            show this help message and exit
+  --user USER           stdlinux/faclinux username if different from your
+                        local one.
+  -v, --verbose         Enable verbose logging.
+  --double-sided        Print double-sided sheets.
+  --fit-to-page         Fit all sheets to their page.
+  --per-page {2,4,6,9,16}
+                        The number of pages to put on each sheet.
+  --version             show program's version number and exit
 ```
 
 ## License
